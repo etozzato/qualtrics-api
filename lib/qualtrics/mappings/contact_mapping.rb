@@ -5,6 +5,7 @@ module Qualtrics::API
     kartograph do
       mapping MailingList::Contact
       root_key plural: "elements", scopes: [:read]
+      root_key plural: "contacts", scopes: [:update]
 
       property :id, scopes: [:read]
 

@@ -3,7 +3,7 @@ inherit_from:
 
 AllCops:
   Exclude:
-    - 'bin/*'
+    - 'bin/**'
     - 'db/migrate/*'
     - 'db/schema.rb'
     - 'config/boot.rb'
@@ -12,3 +12,4 @@ AllCops:
     - 'config/environment.rb'
     - 'config.ru'
     - 'Rakefile'
+    - 'node_modules/**/**'

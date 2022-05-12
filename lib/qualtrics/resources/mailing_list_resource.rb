@@ -46,6 +46,15 @@ module Qualtrics::API
       action :delete_contact, "DELETE /API/v3/mailinglists/:id/contacts/:contact_id" do
         handler(200) { |_| true }
       end
+
+      action :import_contacts, "POST /API/v3/directories/:id/mailinglists/:mailing_list_id/transactioncontacts" do
+        body { |object| ContactMapping.represent_collection_for(:update, object) }
+        handler(202) { |response| (JSON.parse(response.body)["result"]).deep_symbolize_keys }
+      end
+
+      action :track_import, "GET /API/v3/directories/:id/mailinglists/:mailing_list_id/transactioncontacts/:import_id" do
+        handler(200) { |response| (JSON.parse(response.body)["result"]).deep_symbolize_keys }
+      end
     end
   end
 end

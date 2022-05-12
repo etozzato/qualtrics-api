@@ -42,6 +42,26 @@ module Qualtrics::API
           object
         end
       end
+
+      action :create_links, "POST /API/v3/distributions" do
+        body do |hash|
+          params = {
+            surveyId: hash[:survey_id],
+            mailingListId: hash[:mailing_list_id],
+            linkType: 'Individual',
+            description: "Distribution links for survey #{hash[:survey_id]}",
+            action: 'CreateDistribution',
+            expirationDate: (hash[:expiration_date] || (Time.now + 30.days).strftime('%F %T'))
+          }
+          params.to_json
+      end
+        handler(200) { |response| (JSON.parse(response.body)['result']).deep_symbolize_keys }
+      end
+
+      action :retrieve_links, "GET /API/v3/distributions/:id/links" do
+        query_keys :surveyId
+        handler(200) { |response| (JSON.parse(response.body)['result']).deep_symbolize_keys }
+      end
     end
   end
 end
