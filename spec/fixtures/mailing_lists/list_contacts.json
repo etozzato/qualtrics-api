@@ -6,7 +6,7 @@
         "firstName": "John",
         "lastName": "Doe",
         "email": "john_doe@email.com",
-        "externalDataReference": null,
+        "extRef": null,
         "embeddedData": {
           "custom": "Mathematics",
           "EmbeddedDataB": ""

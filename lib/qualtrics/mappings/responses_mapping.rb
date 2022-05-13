@@ -18,12 +18,12 @@ module Qualtrics::API
 
         r = Response.new
         r.id                        = response["responseId"]
-        r.raw                       = response 
+        r.raw                       = response
         r.values                    = response["values"]
         r.labels                    = response["labels"]
         r.displayed_fields          = response["displayedFields"]
         r.displayed_values          = response["displayedValues"]
-        
+
         values = response["values"]
         r.response_set              = values["responseSet"]
         r.ip_address                = values["ipAddress"]
@@ -35,7 +35,7 @@ module Qualtrics::API
         r.phone_number              = values["Phone Number"]
         r.phone_country             = values["Phone Country"]
         r.country                   = values["Country"]
-        r.external_data_reference   = values["externalDataReference"]
+        r.external_data_reference   = values["extRef"]
         r.finished                  = values["finished"]
         r.status                    = values["status"]
         r.location_latitude         = values["locationLatitude"]
