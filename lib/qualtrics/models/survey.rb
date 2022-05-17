@@ -1,6 +1,6 @@
 module Qualtrics::API
   class Survey < BaseModel
-    attribute :id
+    attribute :survey_id
     attribute :name
     attribute :owner_id
     attribute :organization_id

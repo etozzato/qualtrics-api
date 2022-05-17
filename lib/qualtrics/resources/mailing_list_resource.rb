@@ -3,57 +3,69 @@ module Qualtrics::API
     include ErrorHandlingResourceable
 
     resources do
-      action :all, "GET /API/v3/mailinglists" do
+      action :all, 'GET /API/v3/directories/:id/mailinglists' do
+        query_keys :skipToken
         handler(200) do |response|
-          body = JSON.parse(response.body)["result"].to_json
+          body = JSON.parse(response.body)['result'].to_json
           MailingListMapping.extract_collection(body, :read)
         end
       end
 
-      action :find, "GET /API/v3/mailinglists/:id" do
+      action :paginated, 'GET /API/v3/directories/:id/mailinglists' do
+        query_keys :skipToken
+        handler(200) do |response|
+          response_body = JSON.parse(response.body)['result']
+          OpenStruct.new(
+            collection: MailingListMapping.extract_collection(response_body.to_json, :read),
+            next_page: response_body['nextPage']
+          )
+        end
+      end
+
+      action :find, 'GET /API/v3/mailinglists/:id' do
         handler(200) { |response| MailingListMapping.extract_single(response.body, :read) }
       end
 
-      action :create, "POST /API/v3/mailinglists" do
+      action :create, 'POST /API/v3/mailinglists' do
         body { |object| MailingListMapping.representation_for(:create, object) }
         handler(200) do |response, object|
-          object.id = JSON.parse(response.body)["result"]["id"]
+          object.id = JSON.parse(response.body)['result']['id']
           object
         end
       end
 
-      action :update, "PUT /API/v3/mailinglists/:id" do
+      action :update, 'PUT /API/v3/mailinglists/:id' do
         body { |object| MailingListMapping.representation_for(:update, object) }
         handler(200) { |_| true }
       end
 
-      action :delete, "DELETE /API/v3/mailinglists/:id" do
+      action :delete, 'DELETE /API/v3/mailinglists/:id' do
         handler(200) { |_| true }
       end
 
-      action :list_contacts, "GET /API/v3/mailinglists/:id/contacts" do
+      action :list_contacts, 'GET /API/v3/mailinglists/:id/contacts' do
         handler(200) do |response|
-          body = JSON.parse(response.body)["result"].to_json
+          body = JSON.parse(response.body)['result'].to_json
           ContactMapping.extract_collection(body, :read)
         end
       end
 
-      action :update_contact, "PUT /API/v3/mailinglists/:id/contacts/:contact_id" do
+      action :update_contact, 'PUT /API/v3/mailinglists/:id/contacts/:contact_id' do
         body { |object| ContactMapping.representation_for(:update, object) }
         handler(200) { |_| true }
       end
 
-      action :delete_contact, "DELETE /API/v3/mailinglists/:id/contacts/:contact_id" do
+      action :delete_contact, 'DELETE /API/v3/mailinglists/:id/contacts/:contact_id' do
         handler(200) { |_| true }
       end
 
-      action :import_contacts, "POST /API/v3/directories/:id/mailinglists/:mailing_list_id/transactioncontacts" do
+      action :import_contacts, 'POST /API/v3/directories/:id/mailinglists/:mailing_list_id/transactioncontacts' do
         body { |object| ContactMapping.represent_collection_for(:update, object) }
-        handler(202) { |response| (JSON.parse(response.body)["result"]).deep_symbolize_keys }
+        handler(202) { |response| (JSON.parse(response.body)['result']).deep_symbolize_keys }
       end
 
-      action :track_import, "GET /API/v3/directories/:id/mailinglists/:mailing_list_id/transactioncontacts/:import_id" do
-        handler(200) { |response| (JSON.parse(response.body)["result"]).deep_symbolize_keys }
+      action :track_import, 'GET /API/v3/directories/:id/mailinglists/:mailing_list_id/transactioncontacts/:import_id' do
+        handler(200) { |response| (JSON.parse(response.body)['result']).deep_symbolize_keys }
       end
     end
   end

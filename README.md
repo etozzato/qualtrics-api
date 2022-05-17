@@ -12,6 +12,9 @@ Original work by `Nick Hurst and Joel N`
 - `distributions.create_links`
 - `distributions.retrieve_link`
 
+- `mailing_lists.paginated`
+- `surveys.paginated`
+
 ## Example / Use Case
 
 An application that maintains a pool of survey participants needs to create a mailing list, import contacts, create and retrieve individual survey links.
@@ -67,4 +70,10 @@ sleep 3 # this might not be needed :)
 
 response = qq.distributions.retrieve_links(id: distribution_id, surveyId: survey_id)
 puts  response[:elements]
+```
+
+A "paginated" request is in fact a collection of resources and a cursor to the next page.
+
+```ruby
+client.surveys.paginated => OpenStruct.new(collection: [Qualtrics::API::Survey], next_page: String )
 ```
