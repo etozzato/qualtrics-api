@@ -17,7 +17,7 @@ module Qualtrics::API
 
       scoped :read do
         property :name
-        property :survey_id,          key: "ID"
+        property :survey_id,          key: "id"
         property :owner_id,           key: "ownerId"
         property :organization_id,    key: "organizationId"
         property :creation_date,      key: "creationDate"
