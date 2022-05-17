@@ -17,7 +17,8 @@ module Qualtrics::API
           response_body = JSON.parse(response.body)['result']
           OpenStruct.new(
             collection: SurveyMapping.extract_collection(response_body.to_json, :read),
-            next_page: response_body['nextPage']
+            next_page: response_body['nextPage'],
+            next_offset: response_body['nextPage']&.match(/offset=(\d+)/)&.send(:[],1)
           )
         end
       end

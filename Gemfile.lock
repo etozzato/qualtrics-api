@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    qualtrics (0.5.1)
+    qualtrics (0.5.2)
       activemodel
       activesupport
       faraday
