@@ -11,6 +11,7 @@ Original work by `Nick Hurst and Joel N`
 - `mailing_lists.track_import`
 - `distributions.create_links`
 - `distributions.retrieve_link`
+- `distributions.history`
 
 - `mailing_lists.paginated`
 - `surveys.paginated`

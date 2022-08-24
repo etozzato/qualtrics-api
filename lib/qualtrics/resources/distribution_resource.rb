@@ -62,6 +62,11 @@ module Qualtrics::API
         query_keys :surveyId
         handler(200) { |response| (JSON.parse(response.body)['result']).deep_symbolize_keys }
       end
+
+      action :history, "GET /API/v3/distributions/:id/history" do
+        query_keys :surveyId
+        handler(200) { |response| (JSON.parse(response.body)['result']).deep_symbolize_keys }
+      end
     end
   end
 end
