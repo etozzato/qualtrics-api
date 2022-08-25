@@ -15,7 +15,7 @@ module Qualtrics::API
       end
 
       action :find, "GET /API/v3/distributions/:id" do
-        query_keys surveyId: :survey_id
+        query_keys :surveyId
         handler(200) { |response| DistributionMapping.extract_single(response.body, :read) }
       end
 
